@@ -1,0 +1,38 @@
+{
+  "name": "mm-user-groups",
+  "version": "1.0.0",
+  "description": "User groups extension for Matter In Motion",
+  "keywords": [
+    "matter",
+    "in",
+    "motion",
+    "mm",
+    "extension",
+    "resource",
+    "user",
+    "groups"
+  ],
+  "author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
+  "license": "MIT",
+  "dependencies": {
+    "mm-errors": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:matter-in-motion/mm-user-groups.git"
+  },
+  "main": "./index",
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "mm-db-schema": "^1.0.0",
+    "mm-http": "^1.0.0",
+    "mm-rethinkdb": "^1.0.0",
+    "mm-rethinkdb-schema": "^1.0.0",
+    "mm-test": "^1.0.0",
+    "mm-user": "^1.0.0",
+    "nyc": "^11.3.0"
+  },
+  "scripts": {
+    "test": "nyc ava"
+  }
+}
