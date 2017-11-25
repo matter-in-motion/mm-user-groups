@@ -76,5 +76,3 @@ Deletes the user from the group
 
 
 License: MIT
-
-© velocityzen
