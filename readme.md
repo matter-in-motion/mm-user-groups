@@ -7,7 +7,7 @@ This extension adds groups support for a user resource
 
 ## Usage
 
-[Extensions installation intructions](https://github.com/matter-in-motion/mm/blob/master/docs/extensions.md)
+[Extensions installation instructions](https://github.com/matter-in-motion/mm/blob/master/docs/extensions.md)
 
 ## Settings
 
