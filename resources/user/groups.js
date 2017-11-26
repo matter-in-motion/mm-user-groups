@@ -1,15 +1,6 @@
 'use strict';
 const errors = require('../../errors');
 
-const groupsError = function(error) {
-  return e => {
-    if (e instanceof TypeError) {
-      throw error();
-    }
-    throw e;
-  }
-}
-
 const Groups = function() {}
 
 Groups.prototype.__init = function(units) {
@@ -21,6 +12,7 @@ Groups.prototype.__init = function(units) {
 Groups.prototype.add = function(uid, opts) {
   return this
     .has(uid, { group: this.sudo })
+    .catch(errors.ifErrorThen(4522, 'Unauthorized'))
     .then(() => this._add({ id: opts.user || uid }, opts.group))
     .then(() => true);
 };
@@ -33,12 +25,13 @@ Groups.prototype._add = function(opts, group) {
       user('groups').setInsert(group),
       [ group ]
     )
-  })).catch(groupsError(errors.AlreadyAMemberError))
+  })).catch(errors.ifInstanceThen(TypeError, errors.AlreadyAMemberError))
 };
 
 Groups.prototype.delete = function(uid, opts) {
   return this
     .has(uid, { group: this.sudo })
+    .catch(errors.ifErrorThen(4522, 'Unauthorized'))
     .then(() => this._delete({ id: opts.user || uid }, opts.group))
     .then(() => true);
 };
@@ -51,11 +44,11 @@ Groups.prototype._delete = function(opts, group) {
       user('groups').setDifference([ group ]),
       []
     )
-  })).catch(groupsError(errors.NotAMemberError))
+  })).catch(errors.ifInstanceThen(TypeError, errors.NotAMemberError))
 };
 
 Groups.prototype.has = function(uid, opts) {
-  return this._has({ id: opts.user || uid }, opts.group);
+  return this._has({ id: opts.user || uid }, opts.group)
 };
 
 Groups.prototype._has = function(opts, group) {
@@ -70,7 +63,17 @@ Groups.prototype._has = function(opts, group) {
       true,
       r.error(`User doesn't have ${group}`)
     ))
-    .run();
+    .run()
+    .catch(this.user.notFound)
+    .catch(this.reqlRuntimeError(errors.NotAMemberError));
 };
+
+Groups.prototype.isSudo = function(opts) {
+  return this._has(opts, this.sudo);
+};
+
+Groups.prototype.reqlRuntimeError = function(error) {
+  return errors.ifInstanceThen(this.user.r.Error.ReqlRuntimeError, error);
+}
 
 module.exports = Groups;

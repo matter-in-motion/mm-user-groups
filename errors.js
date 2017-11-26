@@ -5,5 +5,8 @@ const NotAMemberError = errors.Error(4522, 'The user is not a member of the grou
 
 module.exports = {
   AlreadyAMemberError,
-  NotAMemberError
+  NotAMemberError,
+  NotFound: errors.NotFound,
+  ifInstanceThen: errors.ifInstanceThen,
+  ifErrorThen: errors.ifErrorThen
 };

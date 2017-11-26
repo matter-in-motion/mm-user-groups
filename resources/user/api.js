@@ -1,6 +1,4 @@
 'use strict';
-const errors = require('mm-errors');
-const NotAMemberError = require('../../errors').NotAMemberError;
 
 module.exports = {
   __extend: true,
@@ -35,9 +33,7 @@ module.exports = {
         type: 'boolean'
       },
 
-      call: (auth, data) => ctrl
-        .add(auth.id, data)
-        .catch(errors.Unauthorized)
+      call: (auth, data) => ctrl.add(auth.id, data)
     };
   },
 
@@ -71,9 +67,7 @@ module.exports = {
         type: 'boolean'
       },
 
-      call: (auth, data) => ctrl
-        .delete(auth.id, data)
-        .catch(errors.Unauthorized)
+      call: (auth, data) => ctrl.delete(auth.id, data)
     };
   },
 
@@ -107,9 +101,7 @@ module.exports = {
         type: 'boolean'
       },
 
-      call: (auth, data) => ctrl
-        .has(auth.id, data)
-        .catch(NotAMemberError)
+      call: (auth, data) => ctrl.has(auth.id, data)
     };
   }
 };

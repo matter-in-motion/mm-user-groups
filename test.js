@@ -9,6 +9,7 @@ const app = createApp({
     'http',
     'rethinkdb',
     'rethinkdb-schema',
+    'rethinkdb-unique',
     'db-schema',
     'user',
     extension
@@ -50,16 +51,26 @@ test.serial('creates a user', t => user
   })
 );
 
-test.serial('checks if user in sudo group ', t => groups
+test.serial('checks if user in a sudo group ', t => groups
   .has(uid, { group: 'sudo' })
+  .catch(err => t.is(err.code, 4522))
+);
+
+test.serial('checks if non-existent user in a sudo group ', t => groups
+  .has('nouser', { group: 'sudo' })
+  .catch(err => t.is(err.code, 4540))
+);
+
+test.serial('checks if user in a sudo group with a shortcut', t => groups
+  .isSudo({ id: uid })
   .then(() => t.fail())
-  .catch(err => t.truthy(err))
+  .catch(err => t.is(err.code, 4522))
 );
 
 test.serial('fails to add group (no permissions)', t => groups
   .add(uid, { group: 'group' })
   .then(() => t.fail())
-  .catch(err => t.truthy(err))
+  .catch(err => t.is(err.code, 4100))
 );
 
 test.serial('fails to add group to non existed user', t => groups
