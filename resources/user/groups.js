@@ -12,7 +12,7 @@ Groups.prototype.__init = function(units) {
 Groups.prototype.add = function(uid, opts) {
   return this
     .has(uid, { group: this.sudo })
-    .catch(errors.ifErrorThen(4522, 'Unauthorized'))
+    .catch(errors.ifCodeThen(4522, 'Unauthorized'))
     .then(() => this._add({ id: opts.user || uid }, opts.group))
     .then(() => true);
 };
@@ -31,7 +31,7 @@ Groups.prototype._add = function(opts, group) {
 Groups.prototype.delete = function(uid, opts) {
   return this
     .has(uid, { group: this.sudo })
-    .catch(errors.ifErrorThen(4522, 'Unauthorized'))
+    .catch(errors.ifCodeThen(4522, 'Unauthorized'))
     .then(() => this._delete({ id: opts.user || uid }, opts.group))
     .then(() => true);
 };

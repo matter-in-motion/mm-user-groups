@@ -8,5 +8,5 @@ module.exports = {
   NotAMemberError,
   NotFound: errors.NotFound,
   ifInstanceThen: errors.ifInstanceThen,
-  ifErrorThen: errors.ifErrorThen
+  ifCodeThen: errors.ifCodeThen
 };
