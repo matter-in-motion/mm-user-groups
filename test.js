@@ -6,7 +6,6 @@ const createApp = require('mm-test').createApp;
 process.env.NODE_ENV = 'production';
 const app = createApp({
   extensions: [
-    'http',
     'rethinkdb',
     'rethinkdb-schema',
     'rethinkdb-unique',

@@ -15,7 +15,7 @@
   "author": "Alexey Novikov <v@2dubs.com> (http://2dubs.com)",
   "license": "MIT",
   "dependencies": {
-    "mm-errors": "^1.0.0"
+    "mm-errors": "^2.0.0"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "mm-rethinkdb-schema": "^1.0.0",
     "mm-rethinkdb-unique": "^1.0.0",
     "mm-test": "^3.0.0",
-    "mm-user": "^1.0.0",
+    "mm-user": "^2.0.0",
     "nyc": "^11.3.0"
   },
   "scripts": {
